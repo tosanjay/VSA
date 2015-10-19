@@ -3,10 +3,18 @@
 
 import os
 import sys
+##############################################################################################################
+## Manual configuration for importing BinNavi module. this should be configured BEFORE running the script ###
+### There is one more point in the "main function" where you have to provide your SQL/Post configuration (search for string "connectivity parameter") ####
+sys.path.append("drive:\\some\\BinNavi\\BinNavi.jar")
+sys.path.append("drive:\\some\\BinNavi\\REIL.jar")
+sys.path.append("drive:\\some\\BinNavi\\postgresql-9.0-801.jdbc4.jar")
+sys.path.append("drive:\\some\\BinNavi\\guava-r09.jar")
+##############################################################################################################
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "BinNavi.jar"))
-sys.path.append(os.path.join(os.path.dirname(__file__), "REIL.jar"))
-sys.path.append(os.path.join(os.path.dirname(__file__), "mysql-connector-java-5.1.15-bin.jar"))
+#sys.path.append(os.path.join(os.path.dirname(__file__), "BinNavi.jar"))
+#sys.path.append(os.path.join(os.path.dirname(__file__), "REIL.jar"))
+#sys.path.append(os.path.join(os.path.dirname(__file__), "mysql-connector-java-5.1.15-bin.jar"))
 #print sys.path
 from javax.swing import JButton, JFrame, JTextArea, JTextField, SwingUtilities, JOptionPane
 from java.awt import BorderLayout, Graphics
@@ -949,7 +957,10 @@ def doAnalysis(instGraph):
 def main():
 	
 	binNaviProxy = StandAlone.getPluginInterface()
-	binNaviProxy.databaseManager.addDatabase("","com.mysql.jdbc.Driver","localhost","BINNAVI1","binnavi","binnavi",False,False)
+	################## place to set database connectivity parameter ######### 
+    binNaviProxy.databaseManager.addDatabase("","org.postgresql.Driver","localhost","DataBase_name","user","password",False,False)
+    ########################################################################
+	#binNaviProxy.databaseManager.addDatabase("","com.mysql.jdbc.Driver","localhost","BINNAVI1","binnavi","binnavi",False,False)
 	db=binNaviProxy.databaseManager.databases[0]
 	db.connect()
 	db.load()
